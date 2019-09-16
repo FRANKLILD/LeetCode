@@ -13,10 +13,21 @@ import java.util.List;
 // if {ts2 aaa bbb ccc} {ts2 aaa ddd ccc}, 'a' is same, continue compare the capital character of next character
 public class Q1 {
 	
-	public List<String> sortList(){
+	public List<String> sortList(Integer numberOfList, List<String> orderList){
 		List<String> list = new ArrayList<String>();
 		
+		for(int i = 0; i < numberOfList; i++) {
+			sort();
+			
+		}
+		
+		
+		
 		return list;
+	}
+	
+	private boolean compare() {
+		return true;
 	}
 
 }
