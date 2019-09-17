@@ -11,13 +11,18 @@ import java.util.List;
 // Now, we want to only sort the Prime order, the no-Prime order just after Prime order by Original order
 // For Prime order: the capital character of second part 'a' in {ts2 aaa bbb ccc} has priority over 'b' in {ts2 bbb ddd ccc}; put it first.
 // if {ts2 aaa bbb ccc} {ts2 aaa ddd ccc}, 'a' is same, continue compare the capital character of next character
+
+
+
+// string.split();  
+// Arrays.sort();
 public class Q1 {
 	
 	public List<String> sortList(Integer numberOfList, List<String> orderList){
 		List<String> list = new ArrayList<String>();
 		
 		for(int i = 0; i < numberOfList; i++) {
-			sort();
+			
 			
 		}
 		

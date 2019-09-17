@@ -228,6 +228,63 @@ Quick sort is based on the divide-and-conquer approach based on the idea of choo
 Select the first element of array as the pivot element First, we will see how the partition of the array takes place around the pivot.
 </p>
 
+![Quick Sort](images/quickSort.png)
+
+<p>
+In the implementation below, the following components have been used: Here, A[] = array whose elements are to be sorted
+
+start: Leftmost position of the array
+
+end: Rightmost position of the array
+
+i: Boundary between the elements that are less than pivot and those greater than pivot
+
+j: Boundary between the partitioned and unpartitioned part of array
+
+piv: Pivot element
+
+</p>
+
+```JAVA
+int partition ( int A[],int start ,int end) {
+    int i = start + 1;
+    int piv = A[start] ;            //make the first element as pivot element.
+    for(int j =start + 1; j <= end ; j++ )  {
+    /*rearrange the array by putting elements which are less than pivot
+       on one side and which are greater that on other. */
+
+        if ( A[ j ] < piv) {
+            swap (A[ i ],A [ j ]);
+            i += 1;
+        }
+   }
+   swap ( A[ start ] ,A[ i-1 ] ) ;  //put the pivot element in its proper place.
+   return i-1;                      //return the position of the pivot
+}
+```
+Now, let us see the recursive function Quick_sort :
+
+```JAVA
+void quick_sort ( int A[ ] ,int start , int end ) {
+   if( start < end ) {
+        //stores the position of pivot element
+         int piv_pos = partition (A,start , end ) ;     
+         quick_sort (A,start , piv_pos -1);    //sorts the left side of pivot.
+         quick_sort ( A,piv_pos +1 , end) ; //sorts the right side of pivot.
+   }
+}
+```
+```JAVA
+//Let’s see the randomized version of the partition function :
+//SOME
+int rand_partition ( int A[ ] , int start , int end ) {
+    //chooses position of pivot randomly by using rand() function .
+     int random = start + rand( )%(end-start +1 ) ;
+
+      swap ( A[random] , A[start]) ;        //swap pivot with 1st element.
+     return partition(A,start ,end) ;       //call the above partition function
+}
+```
 O(n) algorithms
 ============================================
 1.Counting Sort
@@ -425,9 +482,306 @@ void bucketSort(float[] a,int n)
 }
 ```
 If one assumes that insertion in a bucket takes O(1) time, then steps 1 and 2 of the above algorithm clearly take O(N) time. But we dont know how much buckets we have, and sort() method time complexity.
+
+
+
+JAVA Arrays
+============================================
+
+1.Arrays.sort()
+--------------------------------------------
+
+### Dual-Pivot Quick Sort:
+<pre>
+sort(int[] a)
+
+sort(int[] a, int fromIndex, int toIndex)
+
+Same as: long[], short[], char[], byte[], float[], double[]
+</pre>
+
+
+### Tim Sort:
+<pre>
+sort(Object[] a)
+
+sort(Object[] a, int fromIndex, int toIndex)
+
+sort(T[] a, Comparator<? super T> c)
+
+sort(T[] a, int fromIndex, int toIndex, Comparator<? super T> c)
+
+</pre>
+
+
+
+```JAVA
+    public static void main(String[] args) 
+    { 
+        // Our arr contains 8 elements 
+        int[] arr = {13, 7, 6, 45, 21, 9, 101, 102}; 
+    
+        Arrays.sort(arr); 
+    
+        System.out.printf("Modified arr[] : %s", 
+                            Arrays.toString(arr)); 
+    } 
+    //Output: Modified arr[] : [6, 7, 9, 13, 21, 45, 101, 102]
+```
+
+```JAVA
+    public static void main(String[] args) 
+    { 
+        // Our arr contains 8 elements 
+        int[] arr = {13, 7, 6, 45, 21, 9, 2, 100}; 
+    
+        // Sort subarray from index 1 to 4, i.e., 
+        // only sort subarray {7, 6, 45, 21} and 
+        // keep other elements as it is. 
+        Arrays.sort(arr, 1, 5); 
+    
+        System.out.printf("Modified arr[] : %s", 
+                            Arrays.toString(arr)); 
+    } 
+    //Modified arr[] : [13, 6, 7, 21, 45, 9, 2, 100]
+```
+```JAVA
+    public static void main(String[] args) 
+    { 
+        String arr[] = {"practice.geeksforgeeks.org", 
+                        "quiz.geeksforgeeks.org", 
+                        "code.geeksforgeeks.org"
+                       }; 
+  
+        // Sorts arr[] in ascending order 
+        Arrays.sort(arr); 
+        System.out.printf("Modified arr[] : \n%s\n\n", 
+                          Arrays.toString(arr)); 
+  
+        // Sorts arr[] in descending order 
+        Arrays.sort(arr, Collections.reverseOrder()); 
+  
+        System.out.printf("Modified arr[] : \n%s\n\n", 
+                          Arrays.toString(arr)); 
+    } 
+// Modified arr[] : 
+// [code.geeksforgeeks.org, practice.geeksforgeeks.org, quiz.geeksforgeeks.org]
+
+// Modified arr[] : 
+// [quiz.geeksforgeeks.org, practice.geeksforgeeks.org, code.geeksforgeeks.org]
+```
+
+```JAVA
+// Java program to demonstrate working of Comparator 
+// interface 
+import java.util.*; 
+import java.lang.*; 
+import java.io.*; 
+
+// A class to represent a student. 
+class Student 
+{ 
+	int rollno; 
+	String name, address; 
+
+	// Constructor 
+	public Student(int rollno, String name, 
+							String address) 
+	{ 
+		this.rollno = rollno; 
+		this.name = name; 
+		this.address = address; 
+	} 
+
+	// Used to print student details in main() 
+	public String toString() 
+	{ 
+		return this.rollno + " " + this.name + 
+						" " + this.address; 
+	} 
+} 
+
+class Sortbyroll implements Comparator<Student> 
+{ 
+	// Used for sorting in ascending order of 
+	// roll number 
+	public int compare(Student a, Student b) 
+	{ 
+		return a.rollno - b.rollno; 
+	} 
+} 
+
+// Driver class 
+class Main 
+{ 
+	public static void main (String[] args) 
+	{ 
+		Student [] arr = {new Student(111, "bbbb", "london"), 
+						new Student(131, "aaaa", "nyc"), 
+						new Student(121, "cccc", "jaipur")}; 
+
+		System.out.println("Unsorted"); 
+		for (int i=0; i<arr.length; i++) 
+			System.out.println(arr[i]); 
+
+		Arrays.sort(arr, new Sortbyroll()); 
+
+		System.out.println("\nSorted by rollno"); 
+		for (int i=0; i<arr.length; i++) 
+			System.out.println(arr[i]); 
+	} 
+} 
+// Unsorted
+// 111 bbbb london
+// 131 aaaa nyc
+// 121 cccc jaipur
+
+// Sorted by rollno
+// 111 bbbb london
+// 121 cccc jaipur
+// 131 aaaa nyc
+```
+2.Arrays.parallelSort()
+--------------------------------------------
+
+<pre>
+sort(int[] a)
+
+sort(int[] a, int fromIndex, int toIndex)
+
+Same as: long[], short[], char[], byte[], float[], double[]
+
+parallelSort(T[] a)
+
+parallelSort(T[] a, Comparator<? super T> cmp)
+
+parallelSort(T[] a, int fromIndex, int toIndex)
+
+parallelSort(T[] a, int fromIndex, int toIndex, Comparator<? super T> cmp)
+</pre>
+
+
+<p>
+Parallel sort uses threading (each thread gets a chunk of the list and sorts it in parallel. Later these sorted chunks are merged into a result).
+
+It's faster when there are a lot of elements in the collection. The overhead for parallelization becomes tolerably small on larger arrays, but it is large for smaller ones.
+</p>
+
+![parallel](images/Table_ParallelSort.jpg)
+
+JAVA ArrayList/LinkedList
+============================================
+
+Consider an ArrayList that stores country names as String objects. To sort the ArrayList, you need to simply call the Collections.sort() method passing the ArrayList object populated with country names. This method will sort the elements (country names) of the ArrayList using natural ordering (alphabetically in ascending order)
+
+## Collections.sort:
+adapted from Tim Peters's list sort for Python ( TimSort)
+
+java.util.Collections.reverseOrder()
+
+```JAVA
+	    ArrayList<String> countryList = new ArrayList<>();         
+	    countryList.add("France");         
+	    countryList.add("USA");         
+	    countryList.add("India");         
+	    countryList.add("Spain");         
+	    countryList.add("England");                        
+	    System.out.println("Unsorted ArrayList: " + countryList);    
+	    Collections.sort(countryList);    
+	    System.out.println("Sorted ArrayList in Ascending Order : " + countryList);         
+	    Collections.sort(countryList, Collections.reverseOrder());         
+	    System.out.println("Sorted ArrayList in Descending Order: " + countryList);  
+
+// Unsorted ArrayList: [France, USA, India, Spain, England]
+// Sorted ArrayList in Ascending Order : [England, France, India, Spain, USA]
+// Sorted ArrayList in Descending Order: [USA, Spain, India, France, England]
+
+```
+public static Comparator reverseOrder(Comparator c)
+
+```JAVA
+class Student 
+{ 
+    int rollno; 
+    String name, address; 
+  
+    // Constructor 
+    public Student(int rollno, String name, 
+                               String address) 
+    { 
+        this.rollno = rollno; 
+        this.name = name; 
+        this.address = address; 
+    } 
+  
+    // Used to print student details in main() 
+    public String toString() 
+    { 
+        return this.rollno + " " + this.name + 
+                           " " + this.address; 
+    } 
+} 
+  
+class Sortbyroll implements Comparator<Student> 
+{ 
+    // Used for sorting in ascending order of 
+    // roll number 
+    public int compare(Student a, Student b) 
+    { 
+        return a.rollno - b.rollno; 
+    } 
+} 
+  
+// Driver class 
+class Main 
+{ 
+    public static void main (String[] args) 
+    { 
+        ArrayList<Student> ar = new ArrayList<Student>(); 
+        ar.add(new Student(111, "bbbb", "london")); 
+        ar.add(new Student(131, "aaaa", "nyc")); 
+        ar.add(new Student(121, "cccc", "jaipur")); 
+  
+        System.out.println("Unsorted"); 
+        for (int i=0; i<ar.size(); i++) 
+            System.out.println(ar.get(i)); 
+  
+        // Sorting a list of students in descending order of 
+        // roll numbers using a Comparator that is reverse of 
+        // Sortbyroll() 
+        Comparator c = Collections.reverseOrder(new Sortbyroll()); 
+        Collections.sort(ar, c); 
+  
+        System.out.println("\nSorted by rollno"); 
+        for (int i=0; i<ar.size(); i++) 
+            System.out.println(ar.get(i)); 
+    } 
+} 
+// Unsorted
+// 111 bbbb london
+// 131 aaaa nyc
+// 121 cccc jaipur
+
+// Sorted by rollno
+// 131 aaaa nyc
+// 121 cccc jaipur
+// 111 bbbb london
+```
+
+
+
 ********************************************
 #### Reference
 https://www.cs.cmu.edu/~adamchik/15-121/lectures/Sorting%20Algorithms/sorting.html
 
+https://medium.com/@george.seif94/a-tour-of-the-top-5-sorting-algorithms-with-python-code-43ea9aa02889
+
 https://www.tutorialspoint.com/
+
 https://www.hackerearth.com
+
+https://www.geeksforgeeks.org
+
+https://stackoverflow.com
+
+https://dzone.com/articles/sorting-java-arraylist
