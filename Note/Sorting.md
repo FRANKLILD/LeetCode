@@ -276,7 +276,7 @@ void quick_sort ( int A[ ] ,int start , int end ) {
 ```
 ```JAVA
 //Let’s see the randomized version of the partition function :
-//SOME
+//Some also set pivot as last one or check the mid value of first, last and mid
 int rand_partition ( int A[ ] , int start , int end ) {
     //chooses position of pivot randomly by using rand() function .
      int random = start + rand( )%(end-start +1 ) ;
